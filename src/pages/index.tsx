@@ -58,7 +58,7 @@ const Home = ( { githubInfos, prismicInfos, titlePage }: IUser ) => {
               <S.Link
                 href={item.primary.link.url}
                 key={index}
-                target="_black">
+                target="_blank">
                 {item.primary.name}
               </S.Link>
             )

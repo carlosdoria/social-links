@@ -9,6 +9,7 @@ export const Container = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   text-align: center;
 `
 
@@ -21,6 +22,7 @@ export const Title = styled.h1`
 
   display: flex;
   justify-content: center;
+
   font-size: 3rem;
   font-weight: bold;
 `
@@ -28,13 +30,17 @@ export const Title = styled.h1`
 export const Image = styled.img`
   height: 10rem;
   width: 10rem;
+
   margin: 2rem 0;
+
+  box-shadow: .5px 1px .3rem #fff;
   border-radius: 50%;
 `
 
 export const Text = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
+  line-height: 2rem;
 `
 
 export const LinksContainer = styled.div`
@@ -47,38 +53,63 @@ export const LinksContainer = styled.div`
 `
 
 export const TitleLink = styled.div`
+  margin-bottom: 3rem;
+
   font-size: 2rem;
   font-weight: bold;
 `
 
 export const Link = styled.a`
   position: relative;
-  overflow: hidden;
   width: 100%;
-  display: block;
-  margin: 1.2rem auto;
+
+  margin: 1.4rem auto;
   padding: 0.8rem;
+
+  display: block;
+
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: bold;
   text-decoration: none;
-  border: 1px solid #338ac4;
-  border-radius: 0.6rem;
+  letter-spacing: 2px;
+
   color: #ecf1f8;
-  background: none;
+  /* background: none; */
+
+  border: 1px solid #338ac4;
+  /* border: 1px solid #ff7675; */
+  /* border-radius: .2rem; */
+
+  overflow: hidden;
   cursor: pointer;
+  transition: all 1s ease;
+
+
   ::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%) rotate(45deg); */
     z-index: -1;
+    transition: all .6s ease;
+    /* transition: all .8s ease; */
+
+    background: #338ac4;
+    /* background: #ff7675; */
+
     width: 100%;
-    height: 0%;
-    border-radius: 70% 70% 0 0;
-    background: linear-gradient(#338ac4, #b8d2f7);
-    transition: 1.2s;
+    height: 0;
+    opacity: 0;
+
   }
   :hover::before {
-    height: 180%;
-  }
+    height: 120%;
+    /* height: 820%; */
+    opacity: 1;
+
+    @media screen and (max-width: 600px) {
+      height: 600%;
+    }  }
 `
