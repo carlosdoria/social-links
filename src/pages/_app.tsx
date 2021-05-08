@@ -11,7 +11,7 @@ function MyApp ( { Component, pageProps }: AppProps ) {
   return (
     <>
       <Head>
-        <title>My Portifólio</title>
+        <title>Social Links</title>
         <meta name="description" content="Meu portifólio pessoal" />
       </Head>
       <GlobalStyles />

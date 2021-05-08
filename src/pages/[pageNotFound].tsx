@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-import * as S from 'styles/pageNotFound.styles'
+import * as S from 'styles/pageNotFoundStyles'
 
 const PageNotFound = () => {
 
@@ -19,7 +19,6 @@ const PageNotFound = () => {
       <S.Text>Você será redirecionado para página principal</S.Text>
     </S.Container>
   )
-
 }
 
 export default PageNotFound
