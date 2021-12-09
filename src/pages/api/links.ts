@@ -10,7 +10,7 @@ interface link {
 }
 
 type Data = {
-  data: Array<link>
+  links: Array<link>
 }
 
 export default async function handler (
@@ -34,6 +34,6 @@ export default async function handler (
   } ) )
 
   res.status( 200 ).json( {
-    data: links
+    links
   } )
 }

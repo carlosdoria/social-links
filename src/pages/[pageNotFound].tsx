@@ -3,8 +3,7 @@ import { useRouter } from 'next/router'
 
 import * as S from 'styles/pageNotFoundStyles'
 
-const PageNotFound = () => {
-
+export default function PageNotFound () {
   const router = useRouter()
 
   useEffect( () => {
@@ -20,5 +19,3 @@ const PageNotFound = () => {
     </S.Container>
   )
 }
-
-export default PageNotFound
