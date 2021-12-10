@@ -2,8 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 
-import credentials from '../../credentials/google-sheets-api.json'
-
 interface link {
   title: string
   link: string
@@ -20,8 +18,8 @@ export default async function handler (
   const doc = new GoogleSpreadsheet( '1EdMDQrvUtWqTtan9aUUVcFymYxNSiHe1iPAmbR9hrIc' )
 
   await doc.useServiceAccountAuth( {
-    client_email: credentials.client_email,
-    private_key: credentials.private_key,
+    client_email: process.env.NEXT_PUBLIC_CLIENT_EMAIL as string,
+    private_key: process.env.NEXT_PUBLIC_PRIVATE_KEY as string,
   } )
 
   await doc.loadInfo() // loads document properties and worksheets
