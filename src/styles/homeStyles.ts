@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
+  padding-top: 2rem;
   width: 80%;
 
   margin: 0 auto 0;
@@ -18,12 +19,10 @@ export const Loading = styled.div`
 `
 
 export const Title = styled.h1`
-  margin-top: 5rem;
-
   display: flex;
   justify-content: center;
 
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
 `
 
@@ -37,6 +36,12 @@ export const Image = styled.img`
   border-radius: 50%;
 `
 
+export const Subtitle = styled.h2`
+  font-size: 1.2rem;
+  font-weight: normal;
+  line-height: 2rem;
+`
+
 export const Text = styled.p`
   font-size: 1.4rem;
   font-weight: bold;
@@ -44,7 +49,7 @@ export const Text = styled.p`
 `
 
 export const LinksContainer = styled.div`
-  margin-top: 3rem;
+  margin-top: 1.6rem;
 
   width: 80%;
   max-width: 500px;
@@ -60,10 +65,13 @@ export const TitleLink = styled.div`
 `
 
 export const Link = styled.a`
+  & + & {
+    margin-top: 1rem;
+  }
+
   position: relative;
   width: 100%;
 
-  margin: 1.4rem auto;
   padding: 0.8rem;
 
   display: block;
