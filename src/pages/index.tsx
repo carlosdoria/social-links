@@ -20,14 +20,22 @@ export interface IUser {
   googleSheetsLinks?: [link]
 }
 
-export default function Home ( { githubInfos, googleSheetsLinks }: IUser ) {
+export default function Home ( { githubInfos }: IUser ) {
   const [ userGithubInfos, setUserGithubInfos ] = useState<githubInfos>()
   const [ socialMediaLinks, setSocialMediaLinks ] = useState<[link]>()
 
-  useEffect( () => {
-    setUserGithubInfos( githubInfos )
+  async function getLinks () {
+    const responseApiGoogleSheets = await ApiGoogleSheets.get( '/links' )
+    const googleSheetsLinks = responseApiGoogleSheets.data.links
+    console.log( googleSheetsLinks )
     setSocialMediaLinks( googleSheetsLinks )
-  }, [ githubInfos, googleSheetsLinks ] )
+  }
+
+  useEffect( () => {
+    getLinks()
+    setUserGithubInfos( githubInfos )
+    // setSocialMediaLinks( googleSheetsLinks )
+  }, [ githubInfos ] )
 
   return (
     <S.Container>
@@ -56,13 +64,14 @@ export const getServerSideProps = async () => {
   const responseGithub = await ApiGithub.get( '' )
   const githubInfos = responseGithub.data
 
-  const responseApiGoogleSheets = await ApiGoogleSheets.get( '/links' )
-  const googleSheetsLinks = responseApiGoogleSheets.data.links
+  // const responseApiGoogleSheets = await ApiGoogleSheets.get( '/links' )
+  // const googleSheetsLinks = responseApiGoogleSheets.data.links
+  // console.log( googleSheetsLinks )
 
   return {
     props: {
       githubInfos,
-      googleSheetsLinks
+      // googleSheetsLinks
     },
   }
 }
