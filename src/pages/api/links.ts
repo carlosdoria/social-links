@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { title } from 'process'
 
 interface link {
   title: string
@@ -33,7 +34,12 @@ export default async function handler (
     } ) )
 
     res.status( 200 ).json( {
-      links
+      links: [
+        {
+          title: 'teste',
+          link: 'test'
+        }
+      ]
     } )
   } catch ( err ) {
     res.status( 400 ).json( {

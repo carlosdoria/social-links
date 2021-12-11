@@ -5,5 +5,5 @@ export const ApiGithub = axios.create( {
 } )
 
 export const ApiGoogleSheets = axios.create( {
-  baseURL: 'https://social-links-o51t3hzsw-carlosdoria.vercel.app/api/links'
+  baseURL: 'https://social-links-o51t3hzsw-carlosdoria.vercel.app/api'
 } )
