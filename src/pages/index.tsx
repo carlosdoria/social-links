@@ -1,10 +1,9 @@
-import * as S from '../styles/homeStyles'
-
-import Prismic from 'prismic-javascript'
-import { Client } from '../../prismic-configuration'
+import { useEffect, useState } from 'react'
+import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 import { ApiGithub } from '../services/api'
-import { useEffect, useState } from 'react'
+
+import * as S from '../styles/homeStyles'
 
 export interface githubInfos {
   avatar_url?: string
@@ -12,82 +11,78 @@ export interface githubInfos {
   bio?: string
 }
 
-export interface IGithubUser {
-  githubInfos: githubInfos
-}
-
-export interface prismicInfos {
-  primary: { name: string; link: { url: string } }
-  slice_type: string
-}
-
-export interface IPrismicUser {
-  prismicInfos: prismicInfos[]
+interface link {
+  title: string
+  link: string
 }
 
 export interface IUser {
   githubInfos?: githubInfos
-  prismicInfos?: [prismicInfos]
-  titlePage?: string
+  googleSheetsLinks?: [link]
 }
 
-const Home = ( { githubInfos, prismicInfos, titlePage }: IUser ) => {
+export default function Home ( { githubInfos, googleSheetsLinks }: IUser ) {
   const [ userGithubInfos, setUserGithubInfos ] = useState<githubInfos>()
-  const [ userPrismicInfos, setUserPrismicInfos ] = useState<[prismicInfos]>()
+  const [ socialMediaLinks, setSocialMediaLinks ] = useState<[link]>()
 
   useEffect( () => {
     setUserGithubInfos( githubInfos )
-    setUserPrismicInfos( prismicInfos )
-  }, [ githubInfos, prismicInfos ] )
+    setSocialMediaLinks( googleSheetsLinks )
+  }, [ githubInfos, googleSheetsLinks ] )
 
   return (
     <S.Container>
-      <S.Title>{titlePage}</S.Title>
+      <S.Title>Gerenciador de links</S.Title>
       <S.Image src={userGithubInfos?.avatar_url} />
       <S.Text>{userGithubInfos?.name}</S.Text>
       <S.Text>{userGithubInfos?.bio}</S.Text>
 
       <S.LinksContainer>
-        {userPrismicInfos?.map( ( item, index: number ) => {
-          if ( item.slice_type === 'secao1' ) {
-            return (
-              <S.TitleLink key={index}>{item.primary.name}</S.TitleLink>
-            )
-          } else {
-            return (
-              <S.Link
-                href={item.primary.link.url}
-                key={index}
-                target="_blank">
-                {item.primary.name}
-              </S.Link>
-            )
-          }
-        } )}
+        {socialMediaLinks?.map( item => (
+          <S.Link
+            href={item.link}
+            key={item.title}
+            target="_blank"
+          >
+            {item.title}
+          </S.Link>
+        ) )
+        }
       </S.LinksContainer>
     </S.Container>
   )
 }
 
-export default Home
-
 export const getServerSideProps = async () => {
-  const responseGithub = await ApiGithub.get( '' )
-  const userGithubInfos = responseGithub.data
-  // console.log(userGithubInfos);
+  const responseUserGithub = await ApiGithub.get( '' )
+  const githubInfos = responseUserGithub.data
 
-  const responsePrismic = await Client.query(
-    Prismic.Predicates.at( 'document.type', 'centrallinks' ),
-  )
-  const userPrismicInfos = responsePrismic.results[ 0 ].data.body
-  const titlePage = responsePrismic.results[ 0 ].data.title_page
-  console.log( userPrismicInfos )
+  async function getLinksGoogleSheetsApi () {
+    const doc = new GoogleSpreadsheet( process.env.NEXT_PUBLIC_SHEETS_ID )
+
+    await doc.useServiceAccountAuth( {
+      client_email: process.env.NEXT_PUBLIC_CLIENT_EMAIL as string,
+      private_key: process.env.NEXT_PUBLIC_PRIVATE_KEY as string,
+    } )
+
+    await doc.loadInfo() // loads document properties and worksheets
+    const sheet = doc.sheetsByIndex[ 0 ]
+    const rows = await sheet.getRows()
+
+    const googleSheetsLinks = rows.map( item => ( {
+      title: item.Title,
+      link: item.Links
+    } ) )
+
+    return googleSheetsLinks
+  }
+
+  const googleSheetsLinks = await getLinksGoogleSheetsApi()
 
   return {
     props: {
-      githubInfos: userGithubInfos,
-      prismicInfos: userPrismicInfos,
-      titlePage: titlePage,
+      githubInfos,
+      googleSheetsLinks
     },
   }
 }

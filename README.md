@@ -18,7 +18,7 @@
 ## 📝 About the project
 
 Simple landing page for managing the dissemination of social media links. <br>
-The project has integration with the Api of [Github](https://github.com/) and [Prismic](https://prismic.io/) to render user data.
+The project has integration with the Api of [Github](https://github.com/) and [Google Sheets Api](https://developers.google.com/sheets/api) to render user data.
 
 <br>
 
@@ -36,8 +36,7 @@ The project was developed with the following technologies and tools:
 - [NextJS](https://nextjs.org/);
 - [TypeScript](https://www.typescriptlang.org/);
 - [Styled Components](https://styled-components.com/);
-<!--- [Prismic](https://prismic.io/);
-- [Jest](https://jestjs.io/);
+<!--- [Jest](https://jestjs.io/);
 - [React Testing Library](https://testing-library.com/);-->
 
 <br>

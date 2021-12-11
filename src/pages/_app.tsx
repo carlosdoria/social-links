@@ -2,10 +2,6 @@
 import { AppProps /* , AppContext */ } from 'next/app'
 import Head from 'next/head'
 import GlobalStyles from 'styles/globals'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-import 'react-toastify/dist/ReactToastify.css'
-import 'react-toastify/dist/ReactToastify.min.css'
-import { ToastContainer, Slide } from 'react-toastify'
 
 function MyApp ( { Component, pageProps }: AppProps ) {
   return (
@@ -16,18 +12,6 @@ function MyApp ( { Component, pageProps }: AppProps ) {
       </Head>
       <GlobalStyles />
       <Component {...pageProps} />
-      <ToastContainer
-        className="impct-toast"
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        draggable={false}
-        pauseOnHover
-        transition={Slide}
-      />
     </>
   )
 }
