@@ -32,10 +32,12 @@ export default function Home ( { githubInfos, googleSheetsLinks }: IUser ) {
 
   return (
     <S.Container>
-      <S.Title>Gerenciador de links</S.Title>
-      <S.Image src={userGithubInfos?.avatar_url} />
-      <S.Text>{userGithubInfos?.name}</S.Text>
-      <S.Text>{userGithubInfos?.bio}</S.Text>
+      {/* <S.Title>Gerenciador de links</S.Title> */}
+      <S.UserInfos>
+        <S.Image src={userGithubInfos?.avatar_url} />
+        <S.Title>{userGithubInfos?.name}</S.Title>
+        <S.Subtitle>{userGithubInfos?.bio}</S.Subtitle>
+      </S.UserInfos>
 
       <S.LinksContainer>
         {socialMediaLinks?.map( item => (
