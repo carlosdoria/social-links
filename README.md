@@ -25,7 +25,7 @@ The project has integration with the Api of [Github](https://github.com/) and [G
 ## Deploy
 
 Deploy link:
-[Deploy](https://carlosdoria-portifolio.vercel.app/)
+[Deploy](carlosdoria-social-links.vercel.app/)
 
 <br>
 
